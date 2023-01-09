@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 from mxnet import autograd, nd
 import random
 from ipykernel.pylab.config import InlineBackend
-from d2lzh import ReadData as rd
+from d2lzh import ReadData as Rd, MatrixMultiplication as Mm, Loss as lo, Optimization as Op
 
 
 # 函数要空两行
@@ -27,7 +27,7 @@ num_inputs = 2
 # 训练数据集样本1数为 1000
 num_examples = 1000
 # 使用线性回归模型真实权重
-true_w = [2, -3, 4]
+true_w = [2, -3.4]
 # 偏差 b = 4.2
 true_b = 4.2
 # 每一行是一个长度为 2 的向量
@@ -45,7 +45,7 @@ plt.show()
 
 # 读取第一个小批量数据样本并打印 每个批量的特征形状为 (10, 2) 分别对应批量的大小和输入个数 标签的形状为批量大小
 batch_size = 10
-for x, y in rd.data_iter(batch_size, features, labels):
+for x, y in Rd.data_iter(batch_size, features, labels):
     print(x, y)
     break
 
@@ -55,4 +55,32 @@ b = nd.zeros(shape=(1, ))
 
 # 在之后的模型训练中 需要对这些参数求梯度来迭代参数的值 创建它们的梯度
 w.attach_grad()
-b.attacn_grad()
+b.attach_grad()
+
+# 训练模型
+# 不太懂学习率是怎样决定出来的
+lr = 0.03
+num_epochs = 3
+# 定义模型
+net = Mm.linreg
+# 损失函数
+loss = lo.squared_loss
+
+# 训练模型一共需要 num_epochs 个迭代周期
+for epoch in range(num_epochs):
+    # 在每一个迭代周期中 会使用训练集中所有样本一次(假设样本数能够被批量大小整除)
+    # x 和 y 分别是小批量样本的特征和标签
+    for X, y in Rd.data_iter(batch_size, features, labels):
+        with autograd.record():
+            # l 是有关小批量的损失
+            l = loss(net(X, w, b), y)
+        # 小批量的损失对模型参数求梯度1
+        l.backward()
+        # 使用小批量随机梯度下降迭代模型参数
+        Op.sgd([w, b], lr, batch_size)
+    # 这是？
+    train_l = loss(net(features, w, b), labels)
+    print('epoch %d, loss %f' % (epoch + 1,train_l.mean().asnumpy()))
+
+print(true_w, w)
+print(true_b, b)
