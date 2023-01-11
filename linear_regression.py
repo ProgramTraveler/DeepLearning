@@ -74,13 +74,13 @@ for epoch in range(num_epochs):
         with autograd.record():
             # l 是有关小批量的损失
             l = loss(net(X, w, b), y)
-        # 小批量的损失对模型参数求梯度1
+        # 小批量的损失对模型参数求梯度
         l.backward()
         # 使用小批量随机梯度下降迭代模型参数
         Op.sgd([w, b], lr, batch_size)
     # 这是？
     train_l = loss(net(features, w, b), labels)
-    print('epoch %d, loss %f' % (epoch + 1,train_l.mean().asnumpy()))
+    print('epoch %d, loss %f' % (epoch + 1, train_l.mean().asnumpy()))
 
 print(true_w, w)
 print(true_b, b)
