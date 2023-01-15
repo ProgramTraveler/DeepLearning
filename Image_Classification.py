@@ -1,10 +1,11 @@
 # 图像分类
 
-import d2lzh as d2l
+from d2lzh import Label_to_File as ltf, Show_Fashion as sf
 # data 包读取数据
 from mxnet.gluon import data as gdata
 import sys
 import time
+import matplotlib.pyplot as plt
 
 # 通过参数 train 来指定获取训练数据集或测试数据集
 # 测试数据只用来评价模型的表现 并不能用来训练模型
@@ -25,4 +26,7 @@ print(feature.shape, feature.dtype)
 # 图像的标签使用 Numpy 的标量表示 它的类型为 32 为整数
 print(label, type(label),  label.dtype)
 
-
+# 显示数据集中前 9 个样本的图像内容和文本标签
+x, y = mnist_train[0 : 9]
+sf.show_fashion_mnist(x, ltf.get_fashion_mnist_labels(y))
+plt.show()
