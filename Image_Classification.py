@@ -30,3 +30,19 @@ print(label, type(label),  label.dtype)
 x, y = mnist_train[0 : 9]
 sf.show_fashion_mnist(x, ltf.get_fashion_mnist_labels(y))
 plt.show()
+
+# 读取小批量
+batch_size = 256
+
+# DataLoader 允许使用多进程来加速数据读取 (暂时不支持 Windows 操作系统)
+transformer = gdata.vision.transforms.ToTensor
+if sys.platform.startswith('win'):
+    # 通过参数num_workers 来设置 4 个进程读取数据
+    # 0 表示不用额外的进程来加速读取数据
+    num_workers = 0
+else:
+    num_workers = 4
+
+train_iter = gdata.DataLoader(mnist_train.transform_first(transformer), batch_size, shuffle=True)
+test_iter = gdata.DataLoader(mnist_test.transform_first(transformer), batch_size, shuffle=False,
+                             num_workers=num_workers)
