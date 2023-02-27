@@ -17,7 +17,15 @@ labels = (true_w[0] * poly_features[:, 0] + true_w[1] * poly_features[:, 1] + tr
 labels += nd.random.normal(scale=0.1, shape=labels.shape)
 
 # 生成的数据集的前两个样本
-print(features[:2], poly_features[:2], labels[:2])
+# print(features[:2], poly_features[:2], labels[:2])
 
 # 定义 训练和测试模型
+# 虽然图像正常显示 但是和书上的图像不一样 train 和 test 是反的
+# 三阶多项式函数拟合(正常)
 fp.fit_and_plot(poly_features[:n_train, :], poly_features[n_train:, :], labels[:n_train], labels[n_train:])
+
+# 线性函数拟合(欠拟合)
+fp.fit_and_plot(features[:n_train, :], features[n_train:, :], labels[:n_train], labels[n_train:])
+
+# 训练样本不足(过拟合) 只使用两个样本来训练模型
+fp.fit_and_plot(poly_features[0:2, :], poly_features[n_train:, :], labels[0:2], labels[n_train:])
