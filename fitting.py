@@ -2,6 +2,7 @@
 
 from mxnet import autograd, gluon, nd
 from mxnet.gluon import data as gdata, loss as gloss, nn
+from d2lzh import Fit_and_Plot as fp
 
 # 使用一个三阶多项式函数来来生成该样本的标签
 
@@ -17,3 +18,6 @@ labels += nd.random.normal(scale=0.1, shape=labels.shape)
 
 # 生成的数据集的前两个样本
 print(features[:2], poly_features[:2], labels[:2])
+
+# 定义 训练和测试模型
+fp.fit_and_plot(poly_features[:n_train, :], poly_features[n_train:, :], labels[:n_train], labels[n_train:])
