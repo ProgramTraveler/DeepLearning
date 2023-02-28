@@ -23,5 +23,6 @@ def fit_and_plot(train_features, test_features, train_labels, test_labels):
         train_ls.append(loss(net(train_features), train_labels).mean().asscalar())
         test_ls.append(loss(net(test_features), test_labels).mean().asscalar())
     print('final epoch: train loss', train_ls[-1], 'test loss')
-    se.semilogy(range(1, num_epochs + 1), train_ls, 'epoch', 'loss', range(1, num_epochs + 1), test_ls, ['train', 'test'])
+    se.semilogy(range(1, num_epochs + 1), train_ls, 'epoch', 'loss',
+                range(1, num_epochs + 1), test_ls, ['train', 'test'])
     print('weight', net[0].weight.data().asnumpy(), '\nbias:', net[0].bias.data().asnumpy)
