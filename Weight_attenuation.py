@@ -38,6 +38,36 @@ def fit_and_plot(lambd):
     print('L2 norm of w:', w.norm().asscalar())
 
 
+# 简洁实现
+def fit_and_plot_gluon(wd):
+    net = nn.Sequential()
+    net.add(nn.Dense(1))
+    net.initialize(init.Normal(sigma=1))
+
+    # 对权重参数衰减 权重名称一般是以 weight 结尾
+    trainer_w = gluon.Trainer(net.collect_params('.*weight'), 'sgd', {'learning_rate' : lr, 'wd' : wd})
+
+    # 不对偏差参数衰减 偏差名称一般是以 bias 结尾
+    trainer_b = gluon.Trainer(net.collect_params('.*bias'), 'sgd', {'learning_rate' : lr})
+
+    train_ls, test_ls = [], []
+
+    for _ in range (num_epochs):
+        for X, y in train_iter:
+            with autograd.record():
+                l = loss(net(X), y)
+            l.backward()
+            # 对两个 Trainer 实列分别调用 step 函数 从而分别更新权重和偏差
+            trainer_w.step(batch_size)
+            trainer_b.step(batch_size)
+        train_ls.append(loss(net(train_features), train_labels).mean().asscalar())
+        test_ls.append(loss(net(test_features), test_labels).mean().asscalar())
+    se.semilogy(range(1, num_epochs + 1), train_ls, 'epochs', 'loss',
+                range(1, num_epochs + 1), test_ls, ['train', 'test'])
+
+    print('L2 norm of w:', net[0].weight.data().norm().asscalar())
+
+
 # 考虑高维线性回归问题 设维度为 200 并特意将训练集设低为 20
 n_train, n_test, num_inputs = 20, 100, 200
 
@@ -60,3 +90,10 @@ train_iter = gdata.DataLoader(gdata.ArrayDataset(train_features, train_labels), 
 # 当 lambd 设为 0 时 没有使用权重衰减 过拟合
 fit_and_plot(lambd=0)
 
+# 使用权重衰减
+fit_and_plot(lambd=3)
+
+# 简洁实现
+fit_and_plot_gluon(0)
+
+fit_and_plot_gluon(3)
