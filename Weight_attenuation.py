@@ -32,9 +32,10 @@ def fit_and_plot(lambd):
         train_ls.append(loss(net(train_features, w, b), train_labels).mean().asscalar())
         test_ls.append(loss(net(test_features, w, b), test_labels).mean().asscalar())
 
-        se.semilogy(range(1, num_epochs + 1), train_ls, 'epochs', 'loss',
-                    range(1, num_epochs + 1), test_ls, ['train', 'test'])
-        print('L2 norm of w:', w.norm().asscalar())
+    se.semilogy(range(1, num_epochs + 1), train_ls, 'epochs', 'loss',
+                range(1, num_epochs + 1), test_ls, ['train', 'test'])
+
+    print('L2 norm of w:', w.norm().asscalar())
 
 
 # 考虑高维线性回归问题 设维度为 200 并特意将训练集设低为 20
