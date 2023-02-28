@@ -17,7 +17,7 @@ labels = (true_w[0] * poly_features[:, 0] + true_w[1] * poly_features[:, 1] + tr
 labels += nd.random.normal(scale=0.1, shape=labels.shape)
 
 # 生成的数据集的前两个样本
-# print(features[:2], poly_features[:2], labels[:2])
+print(features[:2], poly_features[:2], labels[:2])
 
 # 定义 训练和测试模型
 # 虽然图像正常显示 但是和书上的图像不一样 train 和 test 是反的
