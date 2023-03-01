@@ -2,7 +2,7 @@
 # 其中 y 轴使用了对数尺度
 
 from matplotlib import pyplot as plt
-from d2lzh import Set_figsize
+from d2lzh import Set_Figsize
 
 def semilogy(x_vals, y_vals, x_label, y_label, x2_vals=None, y2_vals=None, legend=None, figsize=(3.5, 2.5)):
     Set_figsize.set_figsize(figsize)
