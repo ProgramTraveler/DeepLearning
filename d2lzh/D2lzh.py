@@ -1,5 +1,3 @@
-# d2lzh 的所有函数
-
 import collections
 import math
 import os

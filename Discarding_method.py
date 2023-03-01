@@ -2,6 +2,7 @@
 
 from mxnet import autograd, gluon, init, nd
 from mxnet.gluon import loss as gloss, nn
+from d2lzh import Load_Data_Fashion_Mnist as ld, Train_Ch3 as tc3
 
 
 # 该函数将以 drop_prod 的概率丢弃 NDArray 输入 x 中的元素
@@ -65,3 +66,23 @@ drop_prob1, drop_prob2 = 0.2, 0.5
 # 训练和测试模型
 num_epochs, lr, batch_size = 5, 0.5, 256
 loss = gloss.SoftmaxCrossEntropyLoss()
+train_iter, test_iter = ld.load_data_fashion_mnist(batch_size)
+tc3.train_ch3(net, train_iter, test_iter, loss, num_epochs, batch_size, params, lr)
+
+# 简洁实现
+# 在 gluon 中 我们只需要在全连接层后添加 Dropout 层并指定丢弃概率
+# 在训练模型时 Dropout 层将以指定的丢弃率随机丢弃上一层的输出元素
+# 在测试模型中 Dropout 层并不发挥作用
+
+net = nn.Sequential()
+net.add(nn.Dense(256, activation="relu"),
+        nn.Dropout(drop_prob1),     # 在第一个全连接层后添加丢弃层
+        nn.Dense(256, activation="relu"),
+        nn.Dropout(drop_prob2),     # 在第二个全连接层后添加丢弃层
+        nn.Dense(10))
+
+net.initialize(init.Normal(sigma=0.01))
+
+# 注意拼写
+trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate' : lr})
+tc3.train_ch3(net, train_iter, test_iter, loss, num_epochs, batch_size, None, None, trainer)
