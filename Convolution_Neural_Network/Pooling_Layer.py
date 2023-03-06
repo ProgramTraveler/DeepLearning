@@ -40,5 +40,16 @@ print(x)
 pool2d = nn.MaxPool2D(3)
 print(pool2d(x))    # 因为池化层没有模型参数 所以不需要调用参数初始化函数
 
+# 我们可以手动指定步幅和填充
+pool2d = nn.MaxPool2D(3, padding=1, strides=2)
+print(pool2d(x))
 
+# 我们也可以指定非正方形的池化窗口 并分别指定高和宽上的填充和步幅
+pool2d = nn.MaxPool2D((2, 3), padding=(1, 2), strides=(2, 3))
+print(pool2d(x))
 
+# 多通道
+# 池化层对每个输入通道分别池化 而不是像卷积层那样将各通道的输入按通道相加
+# 这意味着池化层的输出通道数与输入通道数相等
+x = nd.concat(x, x + 1, dim=1)
+print(x)
