@@ -1,5 +1,7 @@
 # 线性回归从零开始
 # matplotlib 用于作图
+import sys
+sys.path.append('/root/Deep_Pro/')
 
 from IPython import display
 from matplotlib import pyplot as plt
