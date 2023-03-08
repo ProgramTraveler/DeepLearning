@@ -42,13 +42,13 @@ def evaluate_accuracy(data_iter, net, ctx):
 
 # 对 train_ch3 函数略作修改 确保计算使用的数据和模型同在内存或显存上
 def train_ch5(net, train_iter, test_iter, batch_size, trainer, ctx, num_epochs):
-    # print('training on', ctx)
+    print('training on', ctx)
     loss = gloss.SoftmaxCrossEntropyLoss()
     for epoch in range(num_epochs):
         train_l_sum, train_acc_sum, n, start = 0.0, 0.0, 0, time.time()
         print("###")
         for X, y in train_iter:
-            print("-----")
+            # print("-----")
             X, y = X.as_in_context(ctx), y.as_in_context(ctx)
             with autograd.record():
                 y_hat = net(X)
@@ -94,11 +94,13 @@ for layer in net:
     # print(layer.name, 'output shape:\t', x.shape)
     
 # 读取数据集
+# batch_size = 128
 batch_size = 128
 # 如果出现 out of memory 的报错信息 可减小 batch_size 或者 resize
+# resize=224
 train_iter, test_iter = load_fashion_mnist(batch_size, resize=224)
 
-# 训练模型
+# 训练模型 会跑很久
 lr, num_epoch, ctx = 0.01, 5, tg.try_gpu()
 net.initialize(force_reinit=True, ctx=ctx, init=init.Xavier())
 trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate' : lr})
