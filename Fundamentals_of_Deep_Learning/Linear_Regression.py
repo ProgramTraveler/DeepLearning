@@ -1,5 +1,7 @@
 # 线性回归从零开始
 # matplotlib 用于作图
+
+# 如果要在服务器终端上跑的话 得添加自定义库的绝对路径
 import sys
 sys.path.append('/root/Deep_Pro/')
 
