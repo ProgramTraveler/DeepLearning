@@ -25,17 +25,17 @@ def corr2d_multi_in_out_1x1(x, k):
     return y.reshape((c_o, h, w))
 
 
-x = nd.array([[[0, 1, 2], [3, 4, 5], [6, 7, 8]],
-             [[1, 2, 3], [4, 5, 6], [7, 8, 9]]])
-k = nd.array([[[0, 1], [2, 3]], [[1, 2], [3, 4]]])
-
-print(corr2d_multi_in(x, k))
-
-k = nd.stack(k, k + 1, k + 2)
-print(k.shape)
-
-# 对输入数组 x 和 核数组 k 做互相关运算 此时的输出含有 3 个通道
-print(corr2d_multi_in_out(x, k))
+# x = nd.array([[[0, 1, 2], [3, 4, 5], [6, 7, 8]],
+#              [[1, 2, 3], [4, 5, 6], [7, 8, 9]]])
+# k = nd.array([[[0, 1], [2, 3]], [[1, 2], [3, 4]]])
+#
+# print(corr2d_multi_in(x, k))
+#
+# k = nd.stack(k, k + 1, k + 2)
+# print(k.shape)
+#
+# # 对输入数组 x 和 核数组 k 做互相关运算 此时的输出含有 3 个通道
+# print(corr2d_multi_in_out(x, k))
 
 # 1 * 1 卷积层
 X = nd.random.uniform(shape=(3, 3, 3))

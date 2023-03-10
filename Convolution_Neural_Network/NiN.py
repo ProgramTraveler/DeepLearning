@@ -34,10 +34,10 @@ net.initialize()
 for layer in net:
     x = layer(x)
     print(layer.name, 'output shape:\t', x.shape)
-
+ 
 # 训练模型
 lr, num_epochs, batch_size, ctx = 0.1, 5, 128, tg.try_gpu()
 net.initialize(force_reinit=True, ctx=ctx, init=init.Xavier())
-trainer=gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate' : lr})
+trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate' : lr})
 train_iter, test_iter = ld.load_data_fashion_mnist(batch_size, resize=224)
 tc5.train_ch5(net, train_iter, test_iter, batch_size, trainer, ctx, num_epochs)
