@@ -2,8 +2,8 @@
 # 调用os，sys模块
 
 import sys
-sys.path.append('/root/Deep_Pro/')
-
+# sys.path.append('/root/Deep_Pro/')
+sys.path.append('/home/cowa/wjm/Deep_Pro')
 
 import mxnet as mx
 from mxnet import autograd, gluon, init, nd

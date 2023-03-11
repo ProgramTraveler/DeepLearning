@@ -1,4 +1,6 @@
 # NiN 网络中的网络
+import sys
+sys.path.append('/home/cowa/wjm/Deep_Pro')
 
 from mxnet import gluon, init, nd
 from mxnet.gluon import nn

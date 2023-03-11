@@ -1,4 +1,7 @@
 # 含并行连接的网络 GoogLeNet
+import sys
+sys.path.append('/home/cowa/wjm/Deep_Pro')
+
 from mxnet import gluon, init, nd
 from mxnet.gluon import nn
 from d2lzh import Try_Gpu as tg, Load_Data_Fashion_Mnist as ld, Train_Ch5 as tc5
