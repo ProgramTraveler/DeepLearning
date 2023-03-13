@@ -2,7 +2,8 @@
 # AlexNet 引入了大量的图像增广 如翻转 裁剪和颜色变化
 
 import sys
-sys.path.append('/root/Deep_Pro/')
+# sys.path.append('/root/Deep_Pro/')
+sys.path.append('/home/cowa/wjm/Deep_Pro')
 from mxnet import gluon, init, nd, autograd
 from mxnet.gluon import data as gdata, nn, loss as gloss
 import os
@@ -46,7 +47,7 @@ def train_ch5(net, train_iter, test_iter, batch_size, trainer, ctx, num_epochs):
     loss = gloss.SoftmaxCrossEntropyLoss()
     for epoch in range(num_epochs):
         train_l_sum, train_acc_sum, n, start = 0.0, 0.0, 0, time.time()
-        print("###")
+        # print("###")
         for X, y in train_iter:
             # print("-----")
             X, y = X.as_in_context(ctx), y.as_in_context(ctx)
