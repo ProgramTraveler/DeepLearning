@@ -88,3 +88,25 @@ net.initialize(ctx=ctx, init=init.Xavier())
 trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate' : lr})
 train_iter, test_iter = ld.load_data_fashion_mnist(batch_size)
 tc5.train_ch5(net, train_iter, test_iter, batch_size, trainer, ctx, num_epochs)
+
+# 简洁实现
+net = nn.Sequential()
+net.add(nn.Conv2D(6, kernel_size=5),
+        nn.BatchNorm(6, num_dims=4),
+        nn.Activation('sigmoid'),
+        nn.MaxPool2D(pool_size=2, strides=2),
+        nn.Conv2D(16, kernel_size=5),
+        nn.BatchNorm(16, num_dims=4),
+        nn.Activation('sigmoid'),
+        nn.MaxPool2D(pool_size=2, strides=2),
+        nn.Dense(120),
+        nn.BatchNorm(120, num_dims=2),
+        nn.Activation('sigmoid'),
+        nn.Dense(84),
+        nn.BatchNorm(84, num_dims=2),
+        nn.Activation('sigmoid'),
+        nn.Dense(10))
+
+net.initialize(ctx=ctx, init=init.Xavier())
+trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate' : lr})
+tc5.train_ch5(net, train_iter, test_iter, batch_size, trainer, ctx, num_epochs)
