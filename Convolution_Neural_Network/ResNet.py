@@ -1,7 +1,8 @@
 # 残差网络
 import sys
 # sys.path.append('/root/Deep_Pro/')
-sys.path.append('/home/cowa/wjm/Deep_Pro')
+# sys.path.append('/home/cowa/wjm/Deep_Pro')
+sys.path.append('/root/Deep/')
 from mxnet import gluon, init, nd
 from mxnet.gluon import nn
 from d2lzh import Try_Gpu as tg, Load_Data_Fashion_Mnist as ld, Train_Ch5 as tc5
