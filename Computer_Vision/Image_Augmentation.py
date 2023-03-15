@@ -16,7 +16,7 @@ def show_images(imgs, num_rows, num_cols, scale=2):
             axes[i][j].imshow(imgs[i * num_cols + j].asnumpy())
             axes[i][j].axes.get_xaxis().set_visible(False)
             axes[i][j].axes.get_yaxis().set_visible(False)
-        return axes
+    return axes
   
     
 # 辅助函数 对输入的图像 img 多次运行图像增广方法 aug 并展示所有结果
