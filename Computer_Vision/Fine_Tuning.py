@@ -23,6 +23,7 @@ def train_fine_tuning(net, learning_rate, batch_size=128, num_epochs=5):
     
 
 # 获取数据集
+# 服务器路径
 data_dir = '/root/Deep_Pro/data'
 # base_url = 'https://apache-mxnet.s3-accelerate.amazonaws.com/'
 # fname = gutils.download(base_url + 'gluon/dataset/hotdog.zip',
