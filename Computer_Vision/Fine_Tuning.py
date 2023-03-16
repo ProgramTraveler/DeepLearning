@@ -32,6 +32,7 @@ data_dir = '/root/Deep_Pro/data'
 #     z.extractall(data_dir)
     
 # 创建两个实例来分别读取训练数据集和测试数据集
+# 路径组合
 train_imgs = gdata.vision.ImageFolderDataset(os.path.join(data_dir, 'hotdog/train'))
 test_imgs = gdata.vision.ImageFolderDataset(os.path.join(data_dir, 'hotdog/test'))
 # train_imgs = gdata.vision.ImageFolderDataset('../root/Deep_Por/Computer_Vision/data/hotdog/train/')
