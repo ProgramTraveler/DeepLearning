@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 # 定义一个使用微调的训练模型
 def train_fine_tuning(net, learning_rate, batch_size=128, num_epochs=5):
     train_iter = gdata.DataLoader(train_imgs.transform_first(train_augs), batch_size, shuffle=True)
-    test_iter = gdata.DataLoader(test_imgs.transform_first(test_augs), batch_size, shuffle=True)
+    test_iter = gdata.DataLoader(test_imgs.transform_first(test_augs), batch_size)
     ctx = tag.try_all_gpus()
     net.collect_params().reset_ctx(ctx)
     net.hybridize()

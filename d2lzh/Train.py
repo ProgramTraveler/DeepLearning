@@ -11,7 +11,7 @@ def _get_batch(batch, ctx):
         labels = labels.astype(features.dtype)
     
     return (gutils.split_and_load(features, ctx),
-            gutils.split_and_load((labels, ctx), features.shape[0]))
+            gutils.split_and_load(labels, ctx), features.shape[0])
 # 定义 train 函数使用多 GPU 训练并评价模型
 
 def train(train_iter, test_iter, net, loss, trainer, ctx, num_epochs):
